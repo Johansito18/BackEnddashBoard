@@ -1,0 +1,20 @@
+logging:
+  level:
+    og:
+      hibernate:
+        SQL: debug
+server:
+  port: 8080
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: 123456
+    url: jdbc:mysql://localhost/empresaDb?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
+    username: root
+  jackson:
+    locale: es_CO
+    time-zone: America/Bogota
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL57Dialect
+    hibernate:
+      ddl-auto: update
