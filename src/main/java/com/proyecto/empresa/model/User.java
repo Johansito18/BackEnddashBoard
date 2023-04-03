@@ -42,12 +42,16 @@ public class User implements Serializable {
 
     @NotNull(message = "La fecha no debe estar vacía")
     @Temporal(TemporalType.DATE)
-    private Date birthDate;
+    private String birthDate;
 
     @NotEmpty(message = "El correo no debe estar vacío")
     @Email(message = "El correo debe tener un formato válido")
     @Column(length = 50)
     private String email;
+
+    @NotEmpty
+    @Column(length = 50)
+    private String password;
 
     @NotNull
     @Column(length = 10, unique = true)

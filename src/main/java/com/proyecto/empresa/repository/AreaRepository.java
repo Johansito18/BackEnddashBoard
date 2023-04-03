@@ -18,6 +18,8 @@ public interface AreaRepository extends JpaRepository<Area, Integer> {
 
     List<Area> findByState(EState state);
 
+    Area findByIdArea(Integer idArea);
+
     @Query(value = "CALL areas_totales();", nativeQuery = true)
     Integer findAmountOfAreas();
 

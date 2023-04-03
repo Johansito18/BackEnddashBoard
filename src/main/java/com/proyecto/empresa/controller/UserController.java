@@ -1,5 +1,6 @@
 package com.proyecto.empresa.controller;
 
+import com.proyecto.empresa.enums.ERole;
 import com.proyecto.empresa.enums.EState;
 import com.proyecto.empresa.model.User;
 import com.proyecto.empresa.service.UserService;
@@ -33,55 +34,81 @@ public class UserController {
         }
     }
 
+    @PutMapping("/updateUser/{idUser}")
+    public ResponseEntity<?> updateUser(@Valid @RequestBody User user,@PathVariable Integer idUser, BindingResult result){
+        if (result.hasErrors()) {
+            return ResponseEntity.badRequest().body(result.getAllErrors());
+        }else{
+            userService.updateUser(user, idUser);
+            return ResponseEntity.ok("Usuario actualizado correctamente");
+        }
+    }
+
+    @GetMapping("/findAll")
+    public List<User> findAll(){
+        List<User> listUser = userService.findAll();
+        return listUser;
+    }
+
     @GetMapping("/findAllByEmployeeRol")
     public List<User> findAllByEmployeeRol(){
-        return userService.findAllByEmployeeRol();
+        List<User> listEmployee = userService.findAllByEmployeeRol();
+        return listEmployee;
     }
 
     // Filtros
     @GetMapping("/findAmountOfEmployees")
     public Integer findAmountOfEmployees(){
-        return userService.findAmountOfEmployees();
+        Integer amountEmployees = userService.findAmountOfEmployees();
+        return amountEmployees;
     }
 
     @GetMapping("/findAmountOfActiveEmployees")
     public Integer findAmountOfActiveEmployees(){
-        return userService.findAmountOfActiveEmployees();
+        Integer amountActiveEmployees = userService.findAmountOfActiveEmployees();
+        return amountActiveEmployees;
     }
 
     @GetMapping("/findAmountOfInactiveEmployees")
     public Integer findAmountOfInactiveEmployees(){
-        return userService.findAmountOfInactiveEmployees();
+        Integer amountInactiveEmployees =  userService.findAmountOfInactiveEmployees();
+        return amountInactiveEmployees;
     }
 
     @GetMapping("/findAmountOfEmployeesByDates")
     public Integer findAmountOfEmployeesByDates(@RequestParam("date") String date) throws ParseException {
-        return userService.findAmountOfEmployeesByDates(date);
+        Integer amountEmployeesByDate = userService.findAmountOfEmployeesByDates(date);
+        return amountEmployeesByDate;
     }
 
     @GetMapping("/findAmountOfEmployeesByName/{name}")
     public Integer findAmountOfEmployeesByName(@PathVariable String name){
-        return userService.findAmountOfEmployeesByName(name);
+        Integer amountEmployeesByName = userService.findAmountOfEmployeesByName(name);
+        return amountEmployeesByName;
     }
 
     @GetMapping("/findAmountOfUsersAndAreasByState/{state}")
     public Integer findAmountOfUsersAndAreasByState(@PathVariable Integer state){
-        return userService.findAmountOfUsersAndAreasByState(state);
+        Integer amountEmployeesByState = userService.findAmountOfUsersAndAreasByState(state);
+        return amountEmployeesByState;
     }
 
     @GetMapping("/findAmountOfUsersBySalary/{salary}")
     public Integer findAmountOfUsersBySalary(@PathVariable Double salary){
-        return userService.findAmountOfUsersBySalary(salary);
+        Integer amountEmployeesBySalary = userService.findAmountOfUsersBySalary(salary);
+        return amountEmployeesBySalary;
     }
 
     @GetMapping("/findAmountOfUsersByAge/{age}")
     public Integer findAmountOfUsersByAge(@PathVariable Integer age){
-        return userService.findAmountOfUsersByAge(age);
+        Integer amountEmployeesByAge = userService.findAmountOfUsersByAge(age);;
+        return amountEmployeesByAge;
     }
 
     @GetMapping("/findAmountOfUsersByNumberDocument/{numberDocument}")
     public Integer findAmountOfUsersByNumberDocument(@PathVariable Integer numberDocument){
-        return userService.findAmountOfUsersByNumberDocument(numberDocument);
+        Integer amountEmployeesByNumberDocument = userService.findAmountOfUsersByNumberDocument(numberDocument);
+        return amountEmployeesByNumberDocument;
     }
 
 

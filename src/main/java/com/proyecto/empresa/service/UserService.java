@@ -1,25 +1,23 @@
 package com.proyecto.empresa.service;
 
 import com.proyecto.empresa.enums.ERole;
-import com.proyecto.empresa.enums.EState;
 import com.proyecto.empresa.model.User;
 import com.proyecto.empresa.repository.UserRepository;
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.Validation;
-import jakarta.validation.Validator;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+
 @Service
 public class UserService {
 
     @Autowired
     UserRepository userRepository;
-
 
     public void saveUser(User user){
         try {
@@ -38,6 +36,7 @@ public class UserService {
                 user1.setLastName(user.getLastName());
                 user1.setBirthDate(user.getBirthDate());
                 user1.setEmail(user.getEmail());
+                user1.setPassword(user.getPassword());
                 user1.setSalary(user.getSalary());
                 user1.setPosition(user.getPosition());
                 user1.setRoles(user.getRoles());
@@ -49,96 +48,60 @@ public class UserService {
         }
     }
 
+    public List<User> findAll(){
+        List<User> listUser = userRepository.findAll();
+        return listUser;
+    }
+
     public List<User> findAllByEmployeeRol(){
-        return userRepository.findAllByRoles(ERole.EMPLOYED);
+        List<User> listEmployee = userRepository.findAllByRoles(ERole.EMPLOYED);
+        return listEmployee;
     }
 
     public Integer findAmountOfEmployees(){
-        return userRepository.findAmountOfEmployees();
+        Integer amountEmployees = userRepository.findAmountOfEmployees();
+        return amountEmployees;
     }
 
     public Integer findAmountOfActiveEmployees(){
-        return userRepository.findAmountOfActiveEmployees();
+        Integer amountActiveEmployees = userRepository.findAmountOfActiveEmployees();
+        return amountActiveEmployees;
     }
 
     public Integer findAmountOfInactiveEmployees(){
-        return userRepository.findAmountOfInactiveEmployees();
+        Integer amountInactiveEmployees =  userRepository.findAmountOfInactiveEmployees();
+        return amountInactiveEmployees;
     }
 
     public Integer findAmountOfEmployeesByDates(String date) throws ParseException {
         String date1 = String.valueOf(new SimpleDateFormat("yyyy-MM-dd").parse(date));
-        return userRepository.findAmountOfEmployeesByDates(date1);
+        Integer amountEmployeesByDate = userRepository.findAmountOfEmployeesByDates(date1);
+        return amountEmployeesByDate;
     }
 
     public Integer findAmountOfEmployeesByName(String name){
-        return userRepository.findAmountOfEmployeesByName(name);
+        Integer amountEmployeesByName = userRepository.findAmountOfEmployeesByName(name);
+        return amountEmployeesByName;
     }
 
     public Integer findAmountOfUsersAndAreasByState(Integer state){
-        return userRepository.findAmountOfUsersAndAreasByState(state);
+        Integer amountEmployeesByState = userRepository.findAmountOfUsersAndAreasByState(state);
+        return amountEmployeesByState;
     }
 
     public Integer findAmountOfUsersBySalary(Double salary){
-        return userRepository.findAmountOfUsersBySalary(salary);
+        Integer amountEmployeesBySalary = userRepository.findAmountOfUsersBySalary(salary);
+        return amountEmployeesBySalary;
     }
 
     public Integer findAmountOfUsersByAge(Integer age){
-        return userRepository.findAmountOfUsersByAge(age);
+        Integer amountEmployeesByAge = userRepository.findAmountOfUsersByAge(age);;
+        return amountEmployeesByAge;
     }
 
     public Integer findAmountOfUsersByNumberDocument(Integer numberDocument){
-        return userRepository.findAmountOfUsersByNumberDocument(numberDocument);
+        Integer amountEmployeesByNumberDocument = userRepository.findAmountOfUsersByNumberDocument(numberDocument);
+        return amountEmployeesByNumberDocument;
     }
 
-
-    /*public List<Long> findByDates(Date startDate, Date endDate){
-        List<Long> lista = new ArrayList<>();
-
-        Long empleadosTotales = userRepository.findAll().stream()
-                .filter(fechas -> fechas.getBirthDate().compareTo(startDate) >=0 && fechas.getBirthDate().compareTo(endDate) <= 0)
-                .count();
-
-        Long rolEmpleadoActive = (long) userRepository.findByRolesAndState(ERole.EMPLOYED, EState.ACTIVE.getValor()).size();
-
-        Long rolEmpleadoInactive = (long) userRepository.findByRolesAndState(ERole.EMPLOYED, EState.INACTIVE.getValor()).size();
-
-        lista.add(empleadosTotales);
-        lista.add(rolEmpleadoActive);
-        lista.add(rolEmpleadoInactive);
-
-        return lista;
-    }*/
-
-    /*public List<Long> findByAreas(Integer idArea){
-        List<Long> lista = new ArrayList<>();
-
-        Long empleadosTotales = userRepository.findAll().stream()
-                .filter(area -> area.getArea().getIdArea().equals(idArea)).count();
-
-
-    }*/
-
-    /*public List<User> findByDates(Date startDate, Date endDate){
-        return userRepository.findByDateBetween(startDate, endDate);
-    }
-
-    public List<User> findByAreas(Integer idArea){
-        return userRepository.findByArea(idArea);
-    }
-
-    public List<User> findByStates(EState state){
-        return userRepository.findByState(state);
-    }
-
-    public List<User> findBySalaries(Double startSalary, Double endSalary){
-        return userRepository.findBySalaryBetween(startSalary,endSalary);
-    }
-
-    *//*public List<User> findByAge(int age){
-        return userRepository.findByAge(age);
-    }*//*
-
-    public List<User> findByNumberDocument(Integer numberDocument){
-        return userRepository.findByDocumentNumber(numberDocument);
-    }*/
 }

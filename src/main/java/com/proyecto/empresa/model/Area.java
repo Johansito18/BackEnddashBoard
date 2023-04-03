@@ -36,7 +36,6 @@ public class Area implements Serializable {
     @JsonDeserialize(using = Deserialize.class)
     private EState state;
 
-
     //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToOne
     @JoinColumn(name = "id_user")
